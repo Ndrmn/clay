@@ -11,11 +11,14 @@
 
 <script setup>
 
-import { ref, defineEmits } from 'vue'
+import { ref, defineEmits, onMounted } from 'vue'
 
 const emit = defineEmits(['response'])
 let counter = ref(1)
-toParent ()
+
+onMounted(() => {
+    toParent ()
+})
 
 
 function inc () {

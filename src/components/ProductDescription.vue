@@ -49,7 +49,6 @@ function toCart() {
     cartItem.price = cartItem.quantity * 100;
     console.log(cartItem)
     store.dispatch("setProduct", cartItem);
-
 }
 
 

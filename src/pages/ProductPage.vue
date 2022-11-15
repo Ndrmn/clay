@@ -7,8 +7,8 @@
 
 <script setup>
 
-import ProductGallery from './ProductGallery';
-import ProductDescription from './ProductDescription';
+import ProductGallery from '../components/ProductGallery';
+import ProductDescription from '../components/ProductDescription';
 
 </script>
 

@@ -18,28 +18,66 @@
         </div>
 
         <div class="total">Total: {{totalSum}} $</div>
-        <button class="btn">Buy</button>
+        <div>
+            <button class="btn" @click="clearFunc">Clear cart</button><button class="btn">Buy</button>
+        </div>
     </div>
 </template>
 
 <script setup>
 
-import { ref } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import store from '../store.js';
 
 let numberOfItem = 0;
 
-let cart = ref(store.state.cart);
+let cart = ref();
 
-let totalSum = ref(0);
-
-function totalSumm () {
-    for (let i = 0; i<cart.value.length; i++) {
-        totalSum.value += cart.value[i].price
+function getCartValues() {
+    if (store.state.cart.length > 0) {
+        cart.value = store.state.cart;
+    } else {
+        cart.value = (localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : [] );
+        store.dispatch("restoreCart", cart.value);
     }
 }
 
-totalSumm ();
+
+onMounted(() => {
+    getCartValues()
+})
+
+
+// let totalSum = ref(0);
+
+// function totalSumm () {
+//     for (let i = 0; i<cart.value.length; i++) {
+//         totalSum.value += cart.value[i].price
+//     }
+// }
+
+let totalSum = computed(() => {
+    // for (let i = 0; i<cart.value.length; i++) {
+    //     totalSum.value += cart.value[i].price
+    // }
+    // return totalSum.value
+
+    return store.getters.getTotalPrice
+
+
+})
+
+onMounted(() => {
+//    totalSumm()
+})
+
+function clearFunc () {
+    store.dispatch("clearProduct", []);
+    getCartValues();
+}
+
+
+
 
 </script>
 
@@ -58,7 +96,7 @@ totalSumm ();
         font-size: 16px;
     }
     .btn {
-        margin-top: 20px;
+        margin: 20px 10px 0px 10px;
         width: 189px;
         height: 23px;
         background: #FFDB95;
@@ -117,25 +155,5 @@ totalSumm ();
         text-align: left;
         font-size: 12px;
         display: flex;
-    }
-    .number {
-        width: 5%;
-        padding-left: 5px;
-    }
-    .name {
-        width: 65%;
-        padding-left: 5px;
-    }
-    .color {
-        width: 10%;
-        padding-left: 5px;
-    }   
-    .quantity {
-        width: 10%;
-        padding-left: 5px;
-    }
-    .price {
-        width: 10%;
-        padding-left: 5px;
     }
 </style>

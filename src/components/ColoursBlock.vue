@@ -11,7 +11,7 @@
 
 <script setup>
 
-import { ref, reactive, defineEmits } from 'vue';
+import { ref, reactive, defineEmits, onMounted } from 'vue';
 
 const emit = defineEmits(['response'])
 
@@ -26,19 +26,16 @@ const borderOn = ref('checkedElem')
 
 
 let color = ref(false)
-toParent ()
 
-
-
-
-sessionStorage.setItem('color', color.value)
+onMounted(() => {
+    toParent ()
+})
 
 function actualColor () {
     for (let el of product) {
         if (el.checked == true) {
 
             color.value = el.color
-            sessionStorage.setItem('color', color)
         }
     }
 }
@@ -48,19 +45,36 @@ function toParent () {
     emit('response', color.value)
 }
 
+// function checked(item) {
+//     let checkedColor = item.target
+//     for (let i=0; i<product.length; i++) {
+//         if (product[i].colorCode === checkedColor.id) {
+//             product[i].checked = true
+//         } else {
+//             product[i].checked = false
+//         }
+
+//     }
+//     actualColor()
+//     toParent()
+// }
+
 function checked(item) {
     let checkedColor = item.target
-    for (let i=0; i<product.length; i++) {
-        if (product[i].colorCode === checkedColor.id) {
-            product[i].checked = true
+    for (let elem of product) {
+        if (elem.colorCode === checkedColor.id) {
+            elem.checked = true
         } else {
-            product[i].checked = false
+            elem.checked = false
         }
 
     }
     actualColor()
     toParent()
 }
+
+
+
 
 function cancelFunc () {
     for (let i = 0; i<product.length; i++) {

@@ -1,11 +1,11 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import CartPage from "./components/CartPage.vue";
-import ProductBlock from "./components/ProductBlock.vue";
+import CartPage from "./pages/CartPage.vue";
+import ProductPage from "./pages/ProductPage.vue";
 
 export default createRouter({
     history: createWebHashHistory(),
     routes: [
-        {path: '/', component: ProductBlock},
+        {path: '/', component: ProductPage},
         {path: '/cart', component: CartPage},
     ]
 })

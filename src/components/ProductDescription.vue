@@ -1,29 +1,59 @@
 <template>
     <div class="description">
-        <p class="paragraph1">Half Daisy Dangles</p>
+        <p class="paragraph1">{{product[0].name ? product[0].name : "Name"}}</p>
         <p class="paragraph2">PKR 900</p>
-        <p class="paragraph3">These colorful half daisy earrings are a lightweight, handmade statement piece for any outfit available in four beautiful shades.</p>
-        <p class="paragraph3">Dimensions: 2 x 2.5 in</p>
-        <ColoursBlock @response="colorToCart"/>
-        <QuantityBlock @response="quantityToCart"/>
+        <p class="paragraph3">{{product[0].description ? product[0].description : "Description" }}</p>
+        <p class="paragraph4">Dimensions: 2 x 2.5 in</p>
+        <ColoursBlock @response="colorToCart" :product= "a" />
+        <QuantityBlock @response="quantityToCart" />
         <button class="button" @click="toCart" :disabled="toggle">Add to cart</button>
     </div>
 </template>
 
 <script setup>
 
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 import ColoursBlock from './ColoursBlock';
 import QuantityBlock from './QuantityBlock';
 import store from '../store.js';
+            import { useRoute } from 'vue-router';
 
 let productColor = ref('')
 let productQuantity = ref('')
 
+
+let product = ref([
+    {color: 'blue', colorCode: "#9FC8DC", checked: false},
+])
+
+
+            
+
+            const route = useRoute();
+
+            onMounted (()=>{
+                console.log(route.params.id)
+            })
+
+
+
+function objToColors() {
+    return (JSON.stringify(product.value))
+}
+
+let a = ref()
+
+a.value = objToColors()
+
+
+onMounted(() => {
+    product.value = store.state.product;
+//    a.value = objToColors()
+})
+
 function colorToCart(color) {
     productColor.value = color
-    console.log(productColor.value)
     disableToggle ()
 }
 function quantityToCart(quantity) {
@@ -44,10 +74,12 @@ function disableToggle () {
 
 function toCart() {
     let cartItem = {};
-    cartItem.color = productColor.value
-    cartItem.quantity = productQuantity.value
-    cartItem.price = cartItem.quantity * 100;
-    console.log(cartItem)
+    cartItem.name = product.value[0].name;
+    cartItem.color = productColor.value;
+    cartItem.quantity = productQuantity.value;
+    cartItem.price = cartItem.quantity * product.value[0].price;
+    cartItem.shopName = product.value[0].shopName;
+    cartItem.id = product.value[0].id;
     store.dispatch("setProduct", cartItem);
 }
 
@@ -73,12 +105,21 @@ function toCart() {
         font-size: 14px;
         line-height: 21px;
         margin-bottom: 26px;
+        visibility: hidden;
     }
     .paragraph3 {
         font-weight: 300;
         font-size: 10px;
         line-height: 15px;
         margin-bottom: 15px;
+        /* visibility: hidden; */
+    }
+    .paragraph4 {
+        font-weight: 300;
+        font-size: 10px;
+        line-height: 15px;
+        margin-bottom: 15px;
+        visibility: hidden;
     }
     .button {
         margin-top: 18px;

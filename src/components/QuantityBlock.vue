@@ -20,7 +20,6 @@ onMounted(() => {
     toParent ()
 })
 
-
 function inc () {
     if (counter.value < 100) {
         counter.value++

@@ -1,0 +1,102 @@
+[
+{
+"name": "Half Daisy Dangles",
+"description": "These colorful half daisy earrings are a lightweight, handmade statement piece for any outfit available in four beautiful shades.",
+"price": 100,
+"image": "daisy.svg",
+"color": ["blue", "red", "violet", "pink"],
+"colorCode": ["#9FC8DC", "#E8653A", "#D29DD7", "#F9B2BB"],
+"shopName": "Shop 1",
+"id": "01"
+},
+{
+"name": "Christmas lighter candle",
+"description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+"price": 50,
+"image": "candle.webp",
+"color": ["white", "black", "red", "dark green"],
+"colorCode": ["#FFFFFF","#000000","#CC0033","#006633"],
+"shopName": "Shop 1",
+"id": "02"
+},
+{
+"name": "Christmas tree toy",
+"description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+"price": 20,
+"image": "christmastreetoy.png",
+"color": ["white", "red", "blue"],
+"colorCode": ["#FFFFFF","#CC0033","#33CCFF"],
+"shopName": "Shop 1",
+"id": "03"
+},
+{
+"name": "Greeting card",
+"description": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.",
+"price": 10,
+"image": "greetingcard.jpg",
+"color": ["white", "red"],
+"colorCode": ["#FFFFFF","#CC0033"],
+"shopName": "Shop 1",
+"id": "04"
+},
+{
+"name": "Deer toy",
+"description": "Et velit amet qui omnis itaque non voluptate odit et dolorem praesentium et distinctio beatae. Ab sint amet quo dicta provident ut delectus magni.",
+"price": 21,
+"image": "deertoy.jpg",
+"color": ["white", "brown"],
+"colorCode": ["#FFFFFF","#8B4513"],
+"shopName": "Shop 2",
+"id": "05"
+},
+{
+"name": "Christmas tree",
+"description": "Aut perspiciatis dolores non quae aliquid ut consequatur quia et atque quidem. Sit quasi omnis et libero ducimus in facilis inventore",
+"price": 250,
+"image": "christmastree.jpg",
+"color": ["green", "white"],
+"colorCode": ["#228B22","#FFFFFF"],
+"shopName": "Shop 2",
+"id": "06"
+},
+{
+"name": "Garland",
+"description": "Et eius placeat ea explicabo galisum sed dolor enim ut odit totam sed magnam voluptatem aut vero consequuntur ab adipisci ipsam.",
+"price": 20,
+"image": "garland.jpg",
+"color": ["green", "white", "red"],
+"colorCode": ["#2E8B57","#FFFFFF","#DC143C"],
+"shopName": "Shop 2",
+"id": "07"
+},
+{
+"name": "Cup",
+"description": "Ea illo sequi sit commodi ipsam aut porro odio quo soluta corporis est perspiciatis consectetur!",
+"price": 7,
+"image": "cup.jpg",
+"color": ["yellow", "black", "blue", "green"],
+"colorCode": ["#FFFF00","#000000", "#0000CD", "228B22"],
+"shopName": "Shop 2",
+"id": "08"
+},
+{
+"name": "Snowly toy",
+"description": "Ea consectetur esse ea laudantium incidunt nam voluptatum obcaecati aut delectus quasi non atque magnam qui cupiditate alias et ullam internos.",
+"price": 25,
+"image": "toy.webp",
+"color": ["white"],
+"colorCode": ["#FFFFFF"],
+"shopName": "Shop 2",
+"id": "09"
+},
+{
+"name": "Socks",
+"description": "Id possimus inventore eum quos dolores et adipisci nobis a laborum fugit.",
+"price": 18,
+"image": "socks.jpg",
+"color": ["red", "green"],
+"colorCode": ["#CC0033", "#008000"],
+"shopName": "Shop 2",
+"id": "10"
+}
+]

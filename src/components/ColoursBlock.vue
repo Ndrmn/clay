@@ -2,8 +2,7 @@
     <div class="colours">
         <p>Colours</p>
         <ul>
-            <li v-for="item in product" :key="item.color" :id="item.colorCode" :class="[item.color, (item.checked ? borderOn : '')]" @click="checked">{{}}</li>
-
+            <li v-for="item in product" :key="item.color" :id="item.colorCode" :style=" 'background-color:'+item.colorCode" :class="[item.checked ? borderOn : '']" @click="checked">{{}}</li>
         </ul>
         <div class="btnScale"><button v-show="color" @click="cancelFunc" class="cancelBtn">X clear</button></div>
     </div>
@@ -11,18 +10,29 @@
 
 <script setup>
 
-import { ref, reactive, defineEmits, onMounted } from 'vue';
+import { ref, defineEmits, onMounted, defineProps } from 'vue';
 
-const emit = defineEmits(['response'])
+const emit = defineEmits(['response']);
+import store from '../store.js';
 
-let product = reactive([
-    {color: 'blue', colorCode: "#9FC8DC", checked: false},
-    {color: 'red', colorCode: "#E8653A", checked: false},
-    {color: 'violet', colorCode: "#D29DD7", checked: false},
-    {color: 'pink', colorCode: "#F9B2BB", checked: false}
-])
+// let product = reactive([
+//     {color: 'blue', colorCode: "#9FC8DC", checked: false},
+//     {color: 'red', colorCode: "#E8653A", checked: false},
+//     {color: 'violet', colorCode: "#D29DD7", checked: false},
+//     {color: 'pink', colorCode: "#F9B2BB", checked: false}
+// ])
 
 const borderOn = ref('checkedElem')
+
+const props = defineProps([
+  "product"
+])
+
+let product = ref(JSON.parse(props.product));
+
+onMounted(() => {
+    product.value = store.state.product;
+})
 
 
 let color = ref(false)
@@ -32,7 +42,7 @@ onMounted(() => {
 })
 
 function actualColor () {
-    for (let el of product) {
+    for (let el of product.value) {
         if (el.checked == true) {
 
             color.value = el.color
@@ -61,7 +71,7 @@ function toParent () {
 
 function checked(item) {
     let checkedColor = item.target
-    for (let elem of product) {
+    for (let elem of product.value) {
         if (elem.colorCode === checkedColor.id) {
             elem.checked = true
         } else {
@@ -77,8 +87,8 @@ function checked(item) {
 
 
 function cancelFunc () {
-    for (let i = 0; i<product.length; i++) {
-        product[i].checked = false        
+    for (let i = 0; i<product.value.length; i++) {
+        product.value[i].checked = false        
     }
     color.value = false
     toParent ()
@@ -100,7 +110,6 @@ function cancelFunc () {
     .colours ul {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
         width: 124px;
         height: 22px;
     }
@@ -109,6 +118,7 @@ function cancelFunc () {
         height: 22px;
         border-radius: 2px;
         box-sizing: border-box;
+        margin-right: 5px;
     }
     .blue {
         background-color: #9FC8DC;

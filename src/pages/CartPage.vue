@@ -9,9 +9,9 @@
             <div class="price">Price</div>
         </div>
 
-        <div v-for="item in cart" :key="item.color" class="elem item">
+        <div v-for="item in cart" :key="item.color" class="item">
             <div class="number">{{++numberOfItem}}</div>
-            <div class="name">Half Daisy Dangles</div>
+            <div class="name">{{item.name}}</div>
             <div class="color">{{item.color}}</div>
             <div class="quantity">{{item.quantity}}</div>
             <div class="price">{{item.price}} $</div>
@@ -39,37 +39,43 @@ function getCartValues() {
     } else {
         cart.value = (localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : [] );
         store.dispatch("restoreCart", cart.value);
+        console.log(cart.value)
     }
 }
 
+let shopSet = ref(new Set());
 
-onMounted(() => {
-    getCartValues()
-})
+function getShopTitles() {
+    for (let i = 0;  i < cart.value.length; i++) {
+        console.log(cart.value[i].shopName)
+        shopSet.value.add(cart.value[i].shopName)
+    }
+    console.log(shopSet.value)
+}
 
+// let filteredProducts = ref([]);
 
-// let totalSum = ref(0);
-
-// function totalSumm () {
-//     for (let i = 0; i<cart.value.length; i++) {
-//         totalSum.value += cart.value[i].price
+// function sortByShops() {
+//     for (let item in shopSet.value) {
+//         let someUsers = users.filter(item => item.id < 3);
 //     }
 // }
 
-let totalSum = computed(() => {
-    // for (let i = 0; i<cart.value.length; i++) {
-    //     totalSum.value += cart.value[i].price
-    // }
-    // return totalSum.value
-
-    return store.getters.getTotalPrice
-
-
-})
-
 onMounted(() => {
-//    totalSumm()
+    getCartValues()
+    getShopTitles()
 })
+
+
+
+
+
+
+
+let totalSum = computed(() => {
+    return store.getters.getTotalPrice
+})
+
 
 function clearFunc () {
     store.dispatch("clearProduct", []);

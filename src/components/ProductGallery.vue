@@ -7,7 +7,7 @@
             <li><img src="../assets/ProductImages/pink.svg" alt="#"></li>
         </ul>
         <div class="preview">
-            <img src="../assets/ProductImages/main.svg" alt="#">
+            <img :src="product[0].image ? require('@/assets/products/' + product[0].image) : '../assets/ProductImages/pink.svg' " alt="#">
         </div>
         <div class="button">
             <button><img src="../assets/ProductImages/arrow_forward.svg" alt="#"></button>
@@ -16,6 +16,18 @@
 </template>
 
 <script setup>
+
+import { onMounted, ref } from 'vue';
+import store from '../store.js';
+
+let product = ref([
+    {color: 'blue', image: "daisy.svg", colorCode: "#9FC8DC", checked: false},
+])
+
+onMounted(() => {
+    product.value = store.state.product;
+})
+
 </script>
 
 <style scoped>
@@ -32,6 +44,7 @@
         flex-direction: column;
         justify-content: space-betweenn;
         margin-right: 6px;
+        visibility: hidden;
     }
     .carousel li {
         margin-bottom: 5px;
@@ -53,6 +66,8 @@
         width: 24px;
         justify-content: center;
         align-items: center;
+
+        visibility: hidden;
     }
     .button button {
         width: 24px;

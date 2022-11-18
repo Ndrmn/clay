@@ -3,7 +3,8 @@ import { createStore } from 'vuex';
 const store = createStore({
     state() {
         return {
-            cart: []
+            cart: [],
+            product: {}
         }
     },
     mutations: {
@@ -11,7 +12,6 @@ const store = createStore({
             let a = (localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : [] );
             a.push(data);
             state.cart = a;
-//            state.cart.push(data);
             localStorage.setItem('state', JSON.stringify(this.state.cart));
         },
         deleteProducts(state, data){
@@ -21,6 +21,9 @@ const store = createStore({
         restoreProducts(state, data){
             state.cart = data;
         },
+        setProductObj(state, data){
+            state.product = data;
+        }
     },
     actions: {
         setProduct({ commit }, data){
@@ -31,7 +34,10 @@ const store = createStore({
         },
         restoreCart({ commit }, data){
             commit('restoreProducts', data)
-        }                
+        },
+        setObj({ commit }, data){
+            commit('setProductObj', data)
+        }
     },
     getters: {
         getTotalPrice(state) {
@@ -40,6 +46,9 @@ const store = createStore({
                 s += elem.price
             }
             return s
+        },
+        getProductObj(state) {
+            return state.product
         }
     }
 })

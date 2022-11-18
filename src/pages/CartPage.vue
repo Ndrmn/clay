@@ -8,14 +8,19 @@
             <div class="quantity">Quantity</div>
             <div class="price">Price</div>
         </div>
-
-        <div v-for="item in cart" :key="item.color" class="item">
-            <div class="number">{{++numberOfItem}}</div>
-            <div class="name">{{item.name}}</div>
-            <div class="color">{{item.color}}</div>
-            <div class="quantity">{{item.quantity}}</div>
-            <div class="price">{{item.price}} $</div>
-        </div>
+        
+        <CartShopItem v-for="item in filteredProducts" :key="item[0].shopName" :cartItems="JSON.stringify(item)"/>
+        
+        <!-- <div class="shop">
+            <div class="shopName">Test name</div>
+            <div v-for="item in cart" :key="item.color" class="item">
+                <div class="number">{{++numberOfItem}}</div>
+                <div class="name">{{item.name}}</div>
+                <div class="color">{{item.color}}</div>
+                <div class="quantity">{{item.quantity}}</div>
+                <div class="price">{{item.price}} $</div>
+            </div>
+        </div> -->
 
         <div class="total">Total: {{totalSum}} $</div>
         <div>
@@ -28,8 +33,9 @@
 
 import { ref, onMounted, computed } from 'vue';
 import store from '../store.js';
+import CartShopItem from '../components/CartShopItem.vue';
 
-let numberOfItem = 0;
+//let numberOfItem = 0;
 
 let cart = ref();
 
@@ -50,20 +56,21 @@ function getShopTitles() {
         console.log(cart.value[i].shopName)
         shopSet.value.add(cart.value[i].shopName)
     }
-    console.log(shopSet.value)
 }
 
-// let filteredProducts = ref([]);
+let filteredProducts = ref([]);
 
-// function sortByShops() {
-//     for (let item in shopSet.value) {
-//         let someUsers = users.filter(item => item.id < 3);
-//     }
-// }
+function sortByShops() {
+    for (let item of shopSet.value) {
+        let filteredArr = cart.value.filter(elem => elem.shopName === item);
+        filteredProducts.value.push(filteredArr)
+    }
+}
 
 onMounted(() => {
     getCartValues()
     getShopTitles()
+    sortByShops()
 })
 
 
@@ -80,6 +87,7 @@ let totalSum = computed(() => {
 function clearFunc () {
     store.dispatch("clearProduct", []);
     getCartValues();
+    filteredProducts = ref([]);
 }
 
 
@@ -161,5 +169,15 @@ function clearFunc () {
         text-align: left;
         font-size: 12px;
         display: flex;
+    }
+    .shop {
+        width: 100%;
+        margin: 10px 0px;
+        border: 1px solid #636363;
+        border-radius: 5px;
+    }
+    .shopName {
+        margin: 5px;
+        border-bottom: 1px solid #636363;
     }
 </style>
